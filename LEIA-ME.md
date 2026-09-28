@@ -5,14 +5,14 @@ Um único arquivo, `mapa-mental.html`. Abra com duplo clique no navegador (Chrom
 ## Como adicionar um mapa novo
 
 1. Abra `mapa-mental.html` num editor de texto.
-2. Procure o comentário `MAPAS`. Logo abaixo está o bloco do mapa de exemplo (`id="map-exemplo"`).
-3. Cole um bloco novo ao lado dele:
+2. Procure o comentário `MAPAS`. Logo abaixo estão os blocos já existentes: `map-corretor` (o mapa padrão) e `map-exemplo`.
+3. Cole um bloco novo ao lado deles:
 
 ```html
-<script type="application/json" id="map-corretor">
+<script type="application/json" id="map-incorporadora">
 {
-  "id": "corretor",
-  "title": "Tráfego pago para vender imóveis — Corretor",
+  "id": "incorporadora",
+  "title": "Tráfego pago para vender imóveis — Incorporadora",
   "root": {
     "id": "n1",
     "text": "Texto curto do nó",
@@ -31,10 +31,21 @@ Regras:
 
 - O `id` do bloco precisa começar com `map-`. O ideal é usar `map-<id do mapa>`.
 - O `id` do mapa precisa ser único. Ele também é a chave das edições salvas no navegador.
-- `note`, `tag` e `collapsed` são opcionais. Os `id` dos nós também: sem eles, o app gera um id, mas aí as edições salvas e o estado aberto/fechado não sobrevivem a mudanças no arquivo. Use ids fixos nos mapas reais.
+- `note`, `tag` e `collapsed` são opcionais. Os `id` dos nós também: sem eles, o app gera um id novo a cada abertura e as edições salvas no navegador se perdem. Use ids fixos nos mapas reais.
+- `"collapsed": true` define quais ramos abrem fechados. **Todo mapa abre sempre nesse estado**: o app não lembra os ramos que você abriu ou fechou na última vez.
 - Dentro de `note`, quebra de linha se escreve `\n`, e um parágrafo novo é `\n\n`.
 - JSON inválido não quebra a página: o bloco é ignorado e aparece um aviso na tela. Vírgula sobrando no final de uma lista é o erro mais comum.
-- Link direto para um mapa: `mapa-mental.html#corretor`.
+- Link direto para um mapa: `mapa-mental.html#corretor`. Ao recarregar, o app continua no mapa aberto, porque o `#id` fica no endereço.
+
+### Mapa padrão
+
+Sem `#id` no endereço, abre o bloco que tem o atributo `data-default`. Hoje é o `corretor`:
+
+```html
+<script type="application/json" id="map-corretor" data-default>
+```
+
+Para trocar o padrão, mova o `data-default` para outro bloco. Deixe o atributo em um bloco só; sem nenhum, abre o primeiro bloco do arquivo.
 
 Também dá para montar o mapa no próprio app (modo edição), exportar em **Exportar ▾ → Dados JSON** e colar o conteúdo num bloco novo.
 

@@ -347,7 +347,564 @@ body.editing #zoomHud::after{content:" · MODO EDIÇÃO";color:#C4B5FD;font-weig
      MAPAS
      Cada mapa = um bloco <script type="application/json" id="map-<slug>">.
      Para adicionar um mapa, cole um bloco novo aqui. O seletor detecta sozinho.
+     O mapa que abre por padrão é o bloco com o atributo data-default (só um).
      ===================================================================== -->
+<!-- Mapa padrão ao abrir: o bloco com data-default. -->
+<script type="application/json" id="map-corretor" data-default>
+{
+  "id": "corretor",
+  "title": "Tráfego pago para vender imóveis — Corretor",
+  "root": {
+    "id": "c-trafego-pago-para-vender-imoveis",
+    "text": "Tráfego pago para vender imóveis",
+    "children": [
+      {
+        "id": "c-3-pilares",
+        "text": "3 pilares",
+        "children": [
+          {
+            "id": "c-campanha-que-qualifica",
+            "text": "Campanha que qualifica",
+            "note": "O anúncio e o formulário filtram antes do atendimento. Você só fala com quem cabe no imóvel.",
+            "children": []
+          },
+          {
+            "id": "c-processo-que-converte",
+            "text": "Processo que converte",
+            "note": "Cadência de 14 dias + camada de visita. Lead bom morre sem acompanhamento.",
+            "children": []
+          },
+          {
+            "id": "c-numero-que-mostra",
+            "text": "Número que mostra",
+            "note": "Dashboard com atualização automática + relatório semanal e mensal. Você vê em que etapa a venda trava.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "c-o-trafego",
+        "text": "O tráfego",
+        "children": [
+          {
+            "id": "c-3-campanhas",
+            "text": "3 campanhas",
+            "collapsed": true,
+            "children": [
+              {
+                "id": "c-distribuicao-de-conteudo",
+                "text": "Distribuição de conteúdo",
+                "note": "Verba mínima. Função: fazer mais gente conhecer seu trabalho e alimentar o público do remarketing. Não é campanha de lead.",
+                "collapsed": true,
+                "children": [
+                  {
+                    "id": "c-botao-turbinar",
+                    "text": "Botão Turbinar",
+                    "collapsed": true,
+                    "children": [
+                      {
+                        "id": "c-visita-no-perfil-e-seguidores",
+                        "text": "Visita no perfil e seguidores",
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "c-produto",
+                "text": "Produto",
+                "note": "Objetivo Leads, com formulário instantâneo. É aqui que vai a maior parte da verba. Um imóvel (ou um perfil de imóvel) por vez.",
+                "collapsed": true,
+                "children": [
+                  {
+                    "id": "c-publico-frio",
+                    "text": "Público frio",
+                    "collapsed": true,
+                    "children": [
+                      {
+                        "id": "c-pessoas-que-nao-te-conhecem-acom",
+                        "text": "Pessoas que não te conhecem/acompanham",
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "c-remarketing",
+                "text": "Remarketing",
+                "note": "Quem viu seus vídeos, visitou o perfil ou abriu o formulário e não enviou. Ativa quando esse público tiver tamanho suficiente.",
+                "collapsed": true,
+                "children": [
+                  {
+                    "id": "c-mostrar-o-produto-para-quem-ja-c",
+                    "text": "Mostrar o produto para quem já conhece/acompanha seu trabalho",
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "c-criativo",
+            "text": "Criativo",
+            "collapsed": true,
+            "children": [
+              {
+                "id": "c-valor-entrada-e-condicao-no-anun",
+                "text": "Valor, entrada e condição no anúncio",
+                "note": "O anúncio também qualifica. Quem não cabe no preço não clica, e você não paga por esse clique.",
+                "tag": "OBRIGATÓRIO",
+                "children": []
+              },
+              {
+                "id": "c-2-videos-por-mes-com-ia",
+                "text": "2 vídeos por mês com IA",
+                "children": []
+              },
+              {
+                "id": "c-cards-para-anuncio-conforme-o-im",
+                "text": "Cards para anúncio conforme o imóvel anunciado",
+                "children": []
+              },
+              {
+                "id": "c-captacao-presencial-com-equipame",
+                "text": "Captação presencial com equipamento profissional",
+                "note": "No plano completo, 1 captação por mês.",
+                "children": []
+              },
+              {
+                "id": "c-formatos-4-5-no-feed-9-16-em-sto",
+                "text": "Formatos: 4:5 no feed, 9:16 em stories e reels",
+                "children": []
+              },
+              {
+                "id": "c-sem-aprimoramentos-automaticos-d",
+                "text": "Sem aprimoramentos automáticos da Meta",
+                "note": "Impede a plataforma de alterar texto, cor e enquadramento do seu anúncio.",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c-orcamento",
+            "text": "Orçamento",
+            "collapsed": true,
+            "children": [
+              {
+                "id": "c-verba-definida-pela-conta-do-seu",
+                "text": "Verba definida pela conta do seu ticket",
+                "note": "Paga por você direto à Meta. A maior parte vai para a campanha de produto.",
+                "children": []
+              },
+              {
+                "id": "c-fase-de-aprendizado",
+                "text": "Fase de aprendizado",
+                "note": "A Meta precisa de ~50 resultados em 7 dias para estabilizar uma campanha. Com verba de corretor, isso leva mais tempo. Por isso o contrato é trimestral.",
+                "children": []
+              },
+              {
+                "id": "c-nao-mexer-no-que-esta-aprendendo",
+                "text": "Não mexer no que está aprendendo",
+                "note": "Toda edição reinicia o aprendizado. Uma mudança por vez; na dúvida, não mexer.",
+                "children": []
+              },
+              {
+                "id": "c-escalar-devagar",
+                "text": "Escalar devagar",
+                "note": "No máximo 15–20% a cada 48–72h.",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c-custo-por-lead-nao-e-resultado",
+            "text": "Custo por lead não é resultado",
+            "note": "Custo por lead é métrica de mídia. O que interessa é resposta, visita, proposta e venda. Lead a R$2 costuma ser gente que clicou sem querer.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "c-formulario-instantaneo",
+        "text": "Formulário instantâneo",
+        "children": [
+          {
+            "id": "c-saudacao-com-o-imovel-e-o-valor",
+            "text": "Saudação com o imóvel e o valor",
+            "note": "Confirma qual imóvel a pessoa quer conhecer e reforça o preço.",
+            "children": []
+          },
+          {
+            "id": "c-perguntas-que-qualificam",
+            "text": "Perguntas que qualificam",
+            "collapsed": true,
+            "children": [
+              {
+                "id": "c-morar-ou-investir",
+                "text": "Morar ou investir?",
+                "children": []
+              },
+              {
+                "id": "c-renda-familiar",
+                "text": "Renda familiar",
+                "note": "A primeira faixa já começa no mínimo aceito para aquele imóvel.",
+                "children": []
+              },
+              {
+                "id": "c-entrada-disponivel",
+                "text": "Entrada disponível",
+                "children": []
+              },
+              {
+                "id": "c-como-pretende-pagar",
+                "text": "Como pretende pagar",
+                "note": "Recursos próprios, financiamento, ou precisa vender outro imóvel antes. Revela o momento de compra.",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c-formulario-flexivel-desligado",
+            "text": "Formulário flexível desligado",
+            "note": "Evita que a Meta esconda a saudação, inverta a ordem das perguntas ou pule uma pergunta importante.",
+            "children": []
+          },
+          {
+            "id": "c-tipo-maior-intencao",
+            "text": "Tipo \"Maior intenção\"",
+            "note": "Etapa de confirmação antes do envio. Filtra quem clicou sem querer.",
+            "children": []
+          },
+          {
+            "id": "c-tela-final-com-o-seu-whatsapp",
+            "text": "Tela final com o seu WhatsApp",
+            "note": "Reduz o tempo entre o cadastro e o início do atendimento.",
+            "children": []
+          },
+          {
+            "id": "c-criterio-de-lead-qualificado-por",
+            "text": "Critério de lead qualificado por escrito",
+            "note": "Definido junto com você, para cada imóvel, antes de subir a campanha.",
+            "tag": "OBRIGATÓRIO",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "c-processo-comercial-cadencia-14",
+        "text": "Processo comercial — Cadência 14",
+        "children": [
+          {
+            "id": "c-4-regras",
+            "text": "4 regras",
+            "collapsed": true,
+            "children": [
+              {
+                "id": "c-uma-informacao-nova-por-contato",
+                "text": "Uma informação nova por contato",
+                "note": "Proibido \"passando pra saber se viu\".",
+                "children": []
+              },
+              {
+                "id": "c-mensagem-e-ligacao-no-mesmo-dia",
+                "text": "Mensagem e ligação no mesmo dia",
+                "note": "Mensagem primeiro, ligação logo depois. Quando você liga, o WhatsApp mostra seu nome e foto, e não um número desconhecido.",
+                "children": []
+              },
+              {
+                "id": "c-resposta-encerra-a-cadencia",
+                "text": "Resposta encerra a cadência",
+                "note": "No primeiro retorno, o lead sai do fluxo e entra em atendimento humano.",
+                "children": []
+              },
+              {
+                "id": "c-janela-9h-19h-segunda-a-sabado",
+                "text": "Janela 9h–19h, segunda a sábado",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c-bloco-1-conexao-dias-1-4",
+            "text": "Bloco 1 · Conexão (dias 1–4)",
+            "note": "Objetivo: qualquer resposta. Não se vende aqui.",
+            "collapsed": true,
+            "children": [
+              {
+                "id": "c-d1-identificacao-citando-o-formu",
+                "text": "D1 · Identificação citando o formulário",
+                "note": "Repetir o que ele respondeu prova que existe alguém do outro lado. Ligação 2 minutos depois.",
+                "tag": "OBRIGATÓRIO",
+                "children": []
+              },
+              {
+                "id": "c-d2-prova-social-em-video",
+                "text": "D2 · Prova social em vídeo",
+                "note": "Depoimento de quem comprou + pergunta binária: localização ou condição de pagamento?",
+                "tag": "OBRIGATÓRIO",
+                "children": []
+              },
+              {
+                "id": "c-d3-pergunta-unica-morar-investir",
+                "text": "D3 · Pergunta única: morar, investir ou só olhando",
+                "note": "O número respondido define a trilha do resto da cadência.",
+                "tag": "OBRIGATÓRIO",
+                "children": []
+              },
+              {
+                "id": "c-d4-primeira-saida",
+                "text": "D4 · Primeira saída",
+                "note": "\"É o momento errado ou o projeto errado?\" Quem responde \"momento errado\" continua vivo para depois.",
+                "tag": "OBRIGATÓRIO",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c-bloco-2-construcao-dias-5-9",
+            "text": "Bloco 2 · Construção (dias 5–9)",
+            "note": "Cada dia entrega um dado que ele não consegue conferir sozinho.",
+            "collapsed": true,
+            "children": [
+              {
+                "id": "c-d5-os-tres-numeros",
+                "text": "D5 · Os três números",
+                "note": "% vendido, valor do m², entrega prevista.",
+                "tag": "OBRIGATÓRIO",
+                "children": []
+              },
+              {
+                "id": "c-d6-a-planta",
+                "text": "D6 · A planta",
+                "note": "Planta baixa + um benefício concreto.",
+                "tag": "OBRIGATÓRIO",
+                "children": []
+              },
+              {
+                "id": "c-d7-como-se-paga",
+                "text": "D7 · Como se paga",
+                "note": "Entrada, parcelas e saldo. Ataca o que mais trava decisão. Oferecer simulação real.",
+                "tag": "OBRIGATÓRIO",
+                "children": []
+              },
+              {
+                "id": "c-d8-o-caminho-ate-la",
+                "text": "D8 · O caminho até lá",
+                "note": "Endereço traduzido em minutos de deslocamento.",
+                "tag": "OPCIONAL",
+                "children": []
+              },
+              {
+                "id": "c-d9-comparacao-honesta",
+                "text": "D9 · Comparação honesta",
+                "note": "Comparar com duas opções da mesma faixa, com uma limitação real e pequena do seu imóvel. Apontar a falha antes do comprador te posiciona como consultor.",
+                "tag": "OBRIGATÓRIO",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c-bloco-3-quebra-de-padrao-dias-10",
+            "text": "Bloco 3 · Quebra de padrão (dias 10–12)",
+            "collapsed": true,
+            "children": [
+              {
+                "id": "c-d10-audio-de-40s-segunda-saida",
+                "text": "D10 · Áudio de 40s + segunda saída",
+                "note": "Gravado de uma vez, sem ler roteiro.",
+                "tag": "OBRIGATÓRIO",
+                "children": []
+              },
+              {
+                "id": "c-d11-reengajamento-leve",
+                "text": "D11 · Reengajamento leve",
+                "note": "Humor leve, nunca meme escrachado. Pular em imóvel de altíssimo padrão.",
+                "tag": "OPCIONAL",
+                "children": []
+              },
+              {
+                "id": "c-d12-inversao",
+                "text": "D12 · Inversão",
+                "note": "\"O que teria que ser verdade para você comprar nos próximos 12 meses?\"",
+                "tag": "OBRIGATÓRIO",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c-bloco-4-posicionamento-dias-13-1",
+            "text": "Bloco 4 · Posicionamento (dias 13–14)",
+            "collapsed": true,
+            "children": [
+              {
+                "id": "c-d13-urgencia-real",
+                "text": "D13 · Urgência real",
+                "note": "Só com data confirmada pela construtora. Urgência inventada perde o lead para sempre.",
+                "tag": "CONDICIONAL",
+                "children": []
+              },
+              {
+                "id": "c-d14-triagem-terceira-saida",
+                "text": "D14 · Triagem + terceira saída",
+                "note": "Quatro opções numeradas. O \"não quero mais receber\" é respeitado no mesmo dia.",
+                "tag": "OBRIGATÓRIO",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c-sem-resposta",
+            "text": "Sem resposta",
+            "collapsed": true,
+            "children": [
+              {
+                "id": "c-fase-2-semanal-por-6-semanas",
+                "text": "Fase 2: semanal por 6 semanas",
+                "collapsed": true,
+                "children": [
+                  {
+                    "id": "c-fase-3-mensal-por-6-meses",
+                    "text": "Fase 3: mensal por 6 meses",
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "c-visita",
+        "text": "Visita",
+        "children": [
+          {
+            "id": "c-ao-agendar-confirmacao-localizac",
+            "text": "Ao agendar: confirmação + localização",
+            "note": "Dizer que você bloqueou a agenda para ele. Explicitar o compromisso reduz falta.",
+            "children": []
+          },
+          {
+            "id": "c-d-1-ligacao-nao-mensagem",
+            "text": "D-1: ligação, não mensagem",
+            "note": "Confirmação falada ao vivo reduz falta muito mais que mensagem automática. O dado vem de estudos da área da saúde: o mecanismo vale, o número exato não se transfere.",
+            "tag": "OBRIGATÓRIO",
+            "children": []
+          },
+          {
+            "id": "c-manha-do-dia-confirmacao",
+            "text": "Manhã do dia: confirmação",
+            "children": []
+          },
+          {
+            "id": "c-no-show-resgate-nunca-descarte",
+            "text": "No-show: resgate, nunca descarte",
+            "collapsed": true,
+            "children": [
+              {
+                "id": "c-d-0-1h-depois-aconteceu-alguma-c",
+                "text": "D+0, 1h depois: \"aconteceu alguma coisa?\"",
+                "children": []
+              },
+              {
+                "id": "c-d-2-ligacao-com-duas-datas-para",
+                "text": "D+2: ligação com duas datas para escolher",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "c-auditoria-do-atendimento",
+        "text": "Auditoria do atendimento",
+        "note": "Duas vezes por mês a gente analisa suas conversas no WhatsApp com você e devolve o diagnóstico do que melhorar. Inclui o documento do processo comercial.",
+        "children": []
+      },
+      {
+        "id": "c-dashboard",
+        "text": "Dashboard",
+        "children": [
+          {
+            "id": "c-funil-lead",
+            "text": "Funil: lead",
+            "collapsed": true,
+            "children": [
+              {
+                "id": "c-qualificado",
+                "text": "qualificado",
+                "collapsed": true,
+                "children": [
+                  {
+                    "id": "c-visita-agendada",
+                    "text": "visita agendada",
+                    "collapsed": true,
+                    "children": [
+                      {
+                        "id": "c-visita-realizada",
+                        "text": "visita realizada",
+                        "collapsed": true,
+                        "children": [
+                          {
+                            "id": "c-proposta",
+                            "text": "proposta",
+                            "collapsed": true,
+                            "children": [
+                              {
+                                "id": "c-venda",
+                                "text": "venda",
+                                "children": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "c-tempo-de-resposta",
+            "text": "Tempo de resposta",
+            "children": []
+          },
+          {
+            "id": "c-atualizacao-automatica-relatorio",
+            "text": "Atualização automática + relatório semanal e mensal",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "c-a-conta-do-seu-retorno",
+        "text": "A conta do seu retorno",
+        "children": [
+          {
+            "id": "c-comissao-por-venda-ticket-2-5",
+            "text": "Comissão por venda = ticket × 2,5%",
+            "children": []
+          },
+          {
+            "id": "c-custo-do-trimestre-servico-verba",
+            "text": "Custo do trimestre = serviço + verba de mídia",
+            "children": []
+          },
+          {
+            "id": "c-vendas-para-pagar-tudo-custo-com",
+            "text": "Vendas para pagar tudo = custo ÷ comissão",
+            "note": "Preenchida ao vivo com o seu ticket.",
+            "children": []
+          }
+        ]
+      }
+    ]
+  }
+}
+</script>
+
 <script type="application/json" id="map-exemplo">
 {
   "id": "exemplo",
@@ -535,7 +1092,7 @@ function discoverMaps() {
       const d = JSON.parse(s.textContent);
       let id = String(d.id || s.id.slice(4));
       if (out.some(o => o.id === id)) { console.warn('ID de mapa duplicado:', id); id = id + '-' + (out.length + 1); }
-      out.push({ id, title: d.title || id, src: s.textContent, kind: 'builtin' });
+      out.push({ id, title: d.title || id, src: s.textContent, kind: 'builtin', isDefault: s.hasAttribute('data-default') });
     } catch (e) {
       console.error('Mapa com JSON inválido:', s.id, e);
       setTimeout(() => toast(`O bloco "${s.id}" tem JSON inválido e foi ignorado: ${e.message}`, 7000), 300);
@@ -582,11 +1139,11 @@ function loadMap(id, { quiet } = {}) {
   }
   S.title = data.title || m.title;
   S.root = normalize(data.root || data, new Set());
-  const view = store.get('view:' + m.id);
-  if (view && Array.isArray(view.collapsed)) {
-    const set = new Set(view.collapsed);
-    walkAll(S.root, n => { if (n.children.length) n.collapsed = set.has(n.id); });
-  }
+  // Ao abrir, ramos abertos/fechados seguem sempre o arquivo (campo "collapsed"),
+  // mesmo quando há edição local salva. Nós criados só na edição local mantêm o próprio estado.
+  const origCollapsed = new Map();
+  try { walkAll(normalize(JSON.parse(m.src).root || {}, new Set()), n => origCollapsed.set(n.id, !!n.collapsed)); } catch (e) { /* ignore */ }
+  walkAll(S.root, n => { if (origCollapsed.has(n.id)) { if (origCollapsed.get(n.id) && n.children.length) n.collapsed = true; else delete n.collapsed; } });
   S.undo = []; S.redo = [];
   S.sel = null;
   for (const el of S.els.values()) el.remove();
@@ -596,7 +1153,6 @@ function loadMap(id, { quiet } = {}) {
   render({ dur: 0 });
   initialCamera();
   updateTopbar();
-  store.set('last', m.id);
   if (location.hash !== '#' + m.id) history.replaceState(null, '', '#' + m.id);
 }
 
@@ -997,23 +1553,15 @@ function exitFocus(quiet) { if (!S.focus) return; S.focus = null; S.focusSet = n
 /* ================================================================
    Expandir / recolher
    ================================================================ */
-function saveView() {
-  if (!S.map) return;
-  const collapsed = [];
-  for (const n of S.order) if (n.collapsed && n.children.length) collapsed.push(n.id);
-  store.set('view:' + S.map.id, { collapsed });
-}
 function toggleCollapse(id) {
   if (S.pres) return;
   const n = S.byId.get(id); if (!n || !n.children.length) return;
   n.collapsed = !n.collapsed;
-  saveView();
   render({ anchor: id });
 }
 function setAllCollapsed(fn, msg) {
   if (S.pres) return;
   for (const n of S.order) if (n.children.length) n.collapsed = fn(n);
-  saveView();
   render({ anchor: S.root.id });
   if (msg) toast(msg, 1400);
 }
@@ -1027,7 +1575,7 @@ function nav(dir) {
   if (dir === 'left') { const p = S.parent.get(n.id); if (p) select(p.id, { ensure: true }); return; }
   if (dir === 'right') {
     if (!n.children.length) return;
-    if (n.collapsed) { n.collapsed = false; saveView(); render({ anchor: n.id }); }
+    if (n.collapsed) { n.collapsed = false; render({ anchor: n.id }); }
     const ks = kids(n); if (!ks.length) return;
     const me = S.tgt.get(n.id), cy = me.y + me.h / 2;
     let best = ks[0], bd = Infinity;
@@ -1076,7 +1624,6 @@ function saveNow() {
   if (!S.map || !S.modified) return;
   const ok = store.set('data:' + S.map.id, { v: 1, savedAt: Date.now(), srcHash: hash(S.map.src), title: S.title, root: S.root });
   if (!ok) toast('Não foi possível salvar no navegador (armazenamento local indisponível).', 5000);
-  saveView();
 }
 
 function editGuard() {
@@ -1173,7 +1720,7 @@ function addChild(pid) {
   p.children.push(n); p.collapsed = false;
   reindex(); S.sel = n.id;
   render({ anchor: pid, follow: [n.id] });
-  scheduleSave(); saveView();
+  scheduleSave();
   startEdit(n.id, { isNew: true });
 }
 function addSibling(id) {
@@ -1226,7 +1773,7 @@ function reparent(id, targetId) {
   t.children.push(n); t.collapsed = false;
   reindex(); S.sel = id;
   render({ anchor: targetId, follow: [id] });
-  scheduleSave(); saveView();
+  scheduleSave();
   toast(`Movido para "${t.text}"`, 1600);
 }
 
@@ -1376,7 +1923,7 @@ function revealNode(id) {
   }
   let changed = false, p = S.parent.get(id);
   while (p) { if (p.collapsed) { p.collapsed = false; changed = true; } p = S.parent.get(p.id); }
-  if (changed) { saveView(); render({ dur: 0, anchor: S.root.id }); }
+  if (changed) { render({ dur: 0, anchor: S.root.id }); }
 }
 
 /* ================================================================
@@ -1589,7 +2136,7 @@ async function importText(text, fname) {
     pushUndo();
     S.root = normalize(rootSrc, new Set()); S.title = title;
     reindex(); S.sel = null;
-    render({ dur: 0 }); initialCamera(); scheduleSave(); saveView(); updateTopbar();
+    render({ dur: 0 }); initialCamera(); scheduleSave(); updateTopbar();
     toast('Mapa importado', 1600);
     return;
   }
@@ -1648,7 +2195,7 @@ function updateTopbar() {
   $('#removeImported').hidden = !(S.map && S.map.kind === 'imported');
 }
 async function restoreOriginal() {
-  const ok = await confirmBox({ title: 'Restaurar o original?', body: 'Todas as edições locais deste mapa (texto, notas, estrutura, ramos abertos/fechados) serão descartadas e o histórico de desfazer será limpo.', ok: 'Restaurar original', danger: true });
+  const ok = await confirmBox({ title: 'Restaurar o original?', body: 'Todas as edições locais deste mapa (texto, notas, tags e estrutura) serão descartadas e o histórico de desfazer será limpo.', ok: 'Restaurar original', danger: true });
   if (!ok) return;
   if (S.editing) cancelEdit();
   clearTimeout(saveT);
@@ -1946,8 +2493,10 @@ function genStress(N) {
    ================================================================ */
 S.maps = discoverMaps();
 fillSelector();
-const want = decodeURIComponent(location.hash.slice(1)) || store.get('last');
-loadMap(S.maps.some(m => m.id === want) ? want : (S.maps[0] && S.maps[0].id));
+// Abre o mapa do endereço (#id); sem isso, o bloco marcado com data-default; sem isso, o primeiro.
+const want = decodeURIComponent(location.hash.slice(1));
+const dflt = S.maps.find(m => m.isDefault) || S.maps[0];
+loadMap(S.maps.some(m => m.id === want) ? want : (dflt && dflt.id));
 $('#mapSel').value = S.map ? S.map.id : '';
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if (S.root) { for (const el of S.els.values()) el._sig = null; render({ dur: 0, anchor: S.root.id }); } });
 window.addEventListener('beforeunload', () => { if (S.editing) commitEdit(); saveNow(); });
