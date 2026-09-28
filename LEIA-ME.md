@@ -103,6 +103,12 @@ A tag e a nota se editam no painel lateral, com pré-visualização.
 
 Ao importar um JSON com `id` de um mapa existente, o app pede confirmação para substituir o conteúdo (dá para desfazer). Um `id` novo vira um mapa "(importado)" guardado neste navegador.
 
+## Publicar na Vercel
+
+O `vercel.json` faz a raiz do site (`/`) abrir o `mapa-mental.html`. Sem ele, a Vercel procura um `index.html` e dá 404. Não precisa de build: em *Framework Preset*, use **Other** e deixe *Build Command* e *Output Directory* vazios.
+
+A URL `*.vercel.app` de produção é **pública**: qualquer pessoa com o link vê os mapas e as notas. Se o conteúdo for sensível, ative a *Deployment Protection* no projeto da Vercel ou use o arquivo localmente.
+
 ## Teste de carga
 
 Abra `mapa-mental.html?stress=250` para adicionar um mapa gerado com 250 nós ao seletor. Troque o número para testar outros tamanhos.
