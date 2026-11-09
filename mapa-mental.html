@@ -905,6 +905,436 @@ body.editing #zoomHud::after{content:" · MODO EDIÇÃO";color:#C4B5FD;font-weig
 }
 </script>
 
+<script type="application/json" id="map-construtora">
+{
+  "id": "construtora",
+  "title": "Tráfego pago para vender imóveis — Construtora",
+  "root": {
+    "id": "ct-trafego-pago-para-vender-imoveis",
+    "text": "Tráfego pago para vender imóveis",
+    "children": [
+      {
+        "id": "ct-3-pilares",
+        "text": "3 pilares",
+        "children": [
+          {
+            "id": "ct-campanha-que-qualifica",
+            "text": "Campanha que qualifica",
+            "note": "O anúncio e o formulário filtram antes do atendimento. O corretor só fala com quem cabe no imóvel.",
+            "children": []
+          },
+          {
+            "id": "ct-processo-que-converte",
+            "text": "Processo que converte",
+            "note": "Quem atende, em quanto tempo e com qual sequência. Lead bom morre sem acompanhamento.",
+            "children": []
+          },
+          {
+            "id": "ct-numero-que-mostra",
+            "text": "Número que mostra",
+            "note": "Do anúncio à venda, etapa por etapa. Você sabe onde travou.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "ct-fase-1-presenca",
+        "text": "Fase 1 · Presença",
+        "children": [
+          {
+            "id": "ct-quem-compra-procura-a-construtora",
+            "text": "Quem compra procura a construtora antes de fechar",
+            "note": "Sem perfil e sem obra registrada, a dúvida aparece justo na hora de assinar.",
+            "children": []
+          },
+          {
+            "id": "ct-manual-da-marca",
+            "text": "Manual da marca",
+            "note": "Identidade, aplicação e tom. Parte do logo que já existe.",
+            "children": []
+          },
+          {
+            "id": "ct-instagram-com-obra-casa-pronta-ren",
+            "text": "Instagram com obra, casa pronta, render e acabamento",
+            "note": "Ninguém da equipe precisa aparecer.",
+            "children": []
+          },
+          {
+            "id": "ct-captacao-mensal-com-equipamento-pr",
+            "text": "Captação mensal com equipamento profissional",
+            "note": "Fotos e vídeos nos empreendimentos. É o mesmo material que vira criativo de anúncio.",
+            "children": []
+          },
+          {
+            "id": "ct-site-institucional",
+            "text": "Site institucional",
+            "note": "É onde o comprador confere a construtora. A campanha não depende dele: usa formulário dentro do Instagram e do Facebook.",
+            "children": []
+          },
+          {
+            "id": "ct-obra-registrada-prova-de-que-entre",
+            "text": "Obra registrada = prova de que entrega",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "ct-fase-2-estoque-pronto",
+        "text": "Fase 2 · Estoque pronto",
+        "note": "Capital que já está todo aplicado. É o produto que pode vender primeiro e pagar a operação.",
+        "children": [
+          {
+            "id": "ct-uma-campanha-por-perfil-de-produto",
+            "text": "Uma campanha por perfil de produto",
+            "note": "Unidades do mesmo condomínio e da mesma faixa de preço vão juntas. Unidade de outra faixa vai em campanha separada ou depois.",
+            "tag": "OBRIGATÓRIO",
+            "children": []
+          },
+          {
+            "id": "ct-preco-e-condicao-no-anuncio",
+            "text": "Preço e condição no anúncio",
+            "note": "O anúncio também qualifica. Quem não cabe no preço não clica, e você não paga por esse clique.",
+            "tag": "OBRIGATÓRIO",
+            "children": []
+          },
+          {
+            "id": "ct-formulario-pronto-para-morar",
+            "text": "Formulário \"pronto para morar\"",
+            "collapsed": true,
+            "children": [
+              {
+                "id": "ct-morar-ou-investir",
+                "text": "Morar ou investir?",
+                "children": []
+              },
+              {
+                "id": "ct-prazo-de-compra",
+                "text": "Prazo de compra",
+                "note": "Imediato, até 3 meses, 3 a 6 meses, acima de 6 meses.",
+                "children": []
+              },
+              {
+                "id": "ct-como-pretende-pagar",
+                "text": "Como pretende pagar",
+                "note": "Recursos próprios, financiamento, ou precisa vender outro imóvel antes.",
+                "children": []
+              },
+              {
+                "id": "ct-tela-final-com-o-whatsapp-de-quem",
+                "text": "Tela final com o WhatsApp de quem atende",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "ct-verba-a-partir-de-r-2-mil-mes",
+            "text": "Verba a partir de R$2 mil/mês",
+            "note": "Para ticket até ~R$700 mil. Com essa verba, a campanha leva de 10 a 15 dias para estabilizar. Acima de R$700 mil, a verba sobe junto.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "ct-fase-3-lancamento",
+        "text": "Fase 3 · Lançamento",
+        "children": [
+          {
+            "id": "ct-lista-de-interessados-antes-de-abr",
+            "text": "Lista de interessados antes de abrir vendas",
+            "note": "A presença construída na Fase 1 vira público para o lançamento.",
+            "children": []
+          },
+          {
+            "id": "ct-na-planta-ou-pronto",
+            "text": "Na planta ou pronto",
+            "note": "Vender na planta antecipa caixa. Vender pronto preserva preço. A campanha muda conforme a escolha, e a escolha é da construtora.",
+            "children": []
+          },
+          {
+            "id": "ct-render-e-obra-como-criativo",
+            "text": "Render e obra como criativo",
+            "children": []
+          },
+          {
+            "id": "ct-piso-de-midia-r-5-mil-mes",
+            "text": "Piso de mídia ~R$5 mil/mês",
+            "note": "Lançamento tem mais unidades e mais concorrência. Abaixo disso, a campanha não sustenta o ritmo de vendas.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "ct-o-trafego",
+        "text": "O tráfego",
+        "children": [
+          {
+            "id": "ct-3-campanhas",
+            "text": "3 campanhas",
+            "collapsed": true,
+            "children": [
+              {
+                "id": "ct-distribuicao-de-conteudo",
+                "text": "Distribuição de conteúdo",
+                "note": "Verba mínima. Faz mais gente conhecer a construtora e alimenta o público do remarketing. Não é campanha de lead.",
+                "collapsed": true,
+                "children": [
+                  {
+                    "id": "ct-botao-turbinar",
+                    "text": "Botão Turbinar",
+                    "collapsed": true,
+                    "children": [
+                      {
+                        "id": "ct-visita-no-perfil-e-seguidores",
+                        "text": "Visita no perfil e seguidores",
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "ct-produto",
+                "text": "Produto",
+                "note": "Objetivo Leads com formulário instantâneo. A maior parte da verba vai aqui.",
+                "collapsed": true,
+                "children": [
+                  {
+                    "id": "ct-publico-frio",
+                    "text": "Público frio",
+                    "collapsed": true,
+                    "children": [
+                      {
+                        "id": "ct-pessoas-que-ainda-nao-conhecem-a-c",
+                        "text": "Pessoas que ainda não conhecem a construtora",
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "ct-remarketing",
+                "text": "Remarketing",
+                "note": "Quem viu os vídeos, visitou o perfil ou abriu o formulário e não enviou.",
+                "collapsed": true,
+                "children": [
+                  {
+                    "id": "ct-mostrar-o-produto-para-quem-ja-con",
+                    "text": "Mostrar o produto para quem já conhece a construtora",
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "ct-segmentacao",
+            "text": "Segmentação",
+            "note": "Público aberto: quem qualifica é o criativo e o formulário. Cidade e idade (35 a 60). Sem Audience Network e sem coluna da direita.",
+            "children": []
+          },
+          {
+            "id": "ct-criativo",
+            "text": "Criativo",
+            "collapsed": true,
+            "children": [
+              {
+                "id": "ct-4-5-no-feed-9-16-em-stories-e-reel",
+                "text": "4:5 no feed, 9:16 em stories e reels",
+                "children": []
+              },
+              {
+                "id": "ct-sem-aprimoramentos-automaticos-da",
+                "text": "Sem aprimoramentos automáticos da Meta",
+                "note": "Impede a plataforma de alterar texto, cor e enquadramento do anúncio.",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "ct-orcamento",
+            "text": "Orçamento",
+            "collapsed": true,
+            "children": [
+              {
+                "id": "ct-fase-de-aprendizado",
+                "text": "Fase de aprendizado",
+                "note": "Toda edição reinicia o aprendizado. Uma mudança por vez.",
+                "children": []
+              },
+              {
+                "id": "ct-escalar-devagar",
+                "text": "Escalar devagar",
+                "note": "No máximo 15 a 20% a cada 48 a 72 horas.",
+                "children": []
+              },
+              {
+                "id": "ct-nao-espalhar-a-verba",
+                "text": "Não espalhar a verba",
+                "note": "Muitas campanhas pequenas impedem todas de estabilizar.",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "ct-custo-por-lead-nao-e-resultado",
+            "text": "Custo por lead não é resultado",
+            "note": "Custo por lead é métrica de mídia. O que importa é resposta, visita, proposta e venda.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "ct-quem-atende-o-lead",
+        "text": "Quem atende o lead",
+        "children": [
+          {
+            "id": "ct-todo-lead-tem-dono-antes-de-a-camp",
+            "text": "Todo lead tem dono antes de a campanha subir",
+            "tag": "OBRIGATÓRIO",
+            "children": []
+          },
+          {
+            "id": "ct-resposta-em-ate-5-a-10-minutos",
+            "text": "Resposta em até 5 a 10 minutos",
+            "note": "Segunda a sábado, das 8h às 23h.",
+            "children": []
+          },
+          {
+            "id": "ct-cadencia-de-14-dias",
+            "text": "Cadência de 14 dias",
+            "collapsed": true,
+            "children": [
+              {
+                "id": "ct-bloco-1-conexao-dias-1-a-4",
+                "text": "Bloco 1 · Conexão (dias 1 a 4)",
+                "note": "Objetivo: qualquer resposta. A primeira mensagem cita o que a pessoa respondeu no formulário.",
+                "children": []
+              },
+              {
+                "id": "ct-bloco-2-construcao-dias-5-a-9",
+                "text": "Bloco 2 · Construção (dias 5 a 9)",
+                "note": "Cada dia entrega um dado novo: números, planta, como se paga, comparação honesta.",
+                "children": []
+              },
+              {
+                "id": "ct-bloco-3-quebra-de-padrao-dias-10-a",
+                "text": "Bloco 3 · Quebra de padrão (dias 10 a 12)",
+                "note": "Áudio, saída oferecida e a pergunta: o que teria que ser verdade para você comprar?",
+                "children": []
+              },
+              {
+                "id": "ct-bloco-4-posicionamento-dias-13-e-1",
+                "text": "Bloco 4 · Posicionamento (dias 13 e 14)",
+                "note": "Urgência só se for real. Quem pede para parar, para no mesmo dia.",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "ct-visita",
+            "text": "Visita",
+            "collapsed": true,
+            "children": [
+              {
+                "id": "ct-vespera-ligacao-nao-mensagem",
+                "text": "Véspera: ligação, não mensagem",
+                "children": []
+              },
+              {
+                "id": "ct-faltou-resgate-nunca-descarte",
+                "text": "Faltou: resgate, nunca descarte",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "ct-acompanhamento-comercial",
+            "text": "Acompanhamento comercial",
+            "note": "A gente lê as conversas e devolve o que melhorar na abordagem.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "ct-o-que-voce-acompanha",
+        "text": "O que você acompanha",
+        "children": [
+          {
+            "id": "ct-funil-lead",
+            "text": "Funil: lead",
+            "collapsed": true,
+            "children": [
+              {
+                "id": "ct-qualificado",
+                "text": "qualificado",
+                "collapsed": true,
+                "children": [
+                  {
+                    "id": "ct-visita-agendada",
+                    "text": "visita agendada",
+                    "collapsed": true,
+                    "children": [
+                      {
+                        "id": "ct-visita-realizada",
+                        "text": "visita realizada",
+                        "collapsed": true,
+                        "children": [
+                          {
+                            "id": "ct-proposta",
+                            "text": "proposta",
+                            "collapsed": true,
+                            "children": [
+                              {
+                                "id": "ct-venda",
+                                "text": "venda",
+                                "children": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "ct-custo-por-venda-em-do-ticket",
+            "text": "Custo por venda em % do ticket",
+            "note": "Faixa saudável: 0,8% a 2,5% do valor do imóvel.",
+            "children": []
+          },
+          {
+            "id": "ct-relatorio-de-desempenho-com-ajuste",
+            "text": "Relatório de desempenho com ajustes para o mês seguinte",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "ct-a-conta",
+        "text": "A conta",
+        "children": [
+          {
+            "id": "ct-investimento-servico-verba-de-anun",
+            "text": "Investimento = serviço + verba de anúncio",
+            "children": []
+          },
+          {
+            "id": "ct-custo-por-venda-investimento-venda",
+            "text": "Custo por venda = investimento ÷ vendas",
+            "note": "Preenchida ao vivo com os números de vocês.",
+            "children": []
+          }
+        ]
+      }
+    ]
+  }
+}
+</script>
+
 <script type="application/json" id="map-exemplo">
 {
   "id": "exemplo",
