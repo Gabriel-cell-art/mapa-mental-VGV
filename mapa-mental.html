@@ -1561,10 +1561,13 @@ function loadMap(id, { quiet } = {}) {
   const saved = store.get('data:' + m.id);
   S.modified = false;
   if (saved && saved.root) {
-    data = Object.assign({}, data, { title: saved.title || data.title, root: saved.root });
-    S.modified = true;
-    if (!quiet && saved.srcHash && saved.srcHash !== hash(m.src)) {
-      setTimeout(() => toast('O mapa original no arquivo mudou desde a sua edição local. Mostrando a versão editada — use "Restaurar original" para ver a nova.', 8000), 400);
+    if (saved.srcHash && saved.srcHash !== hash(m.src)) {
+      // O arquivo mudou depois da edição local: a versão do arquivo prevalece.
+      store.del('data:' + m.id);
+      if (!quiet) setTimeout(() => toast('Este mapa foi atualizado. A edição antiga salva neste navegador foi descartada.', 6000), 400);
+    } else {
+      data = Object.assign({}, data, { title: saved.title || data.title, root: saved.root });
+      S.modified = true;
     }
   }
   S.title = data.title || m.title;
