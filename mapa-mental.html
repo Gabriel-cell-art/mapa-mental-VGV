@@ -150,6 +150,11 @@ body.ui-hidden #topbar{transform:translateY(-100%);opacity:0;pointer-events:none
 body.ui-hidden #presBar,body.ui-hidden #zoomHud{display:none}
 body.ui-hidden #panel{top:0}
 body.presenting .knob{display:none}
+/* ---------- Modo plateia (?plateia=1): só o mapa, sem interface ---------- */
+body.plateia #topbar,body.plateia #panel,body.plateia #toasts,body.plateia #dropOverlay,
+body.plateia #searchBox,body.plateia #zoomHud,body.plateia #presBar{display:none!important}
+body.plateia .knob{display:none!important}
+body.plateia #viewport{cursor:default}
 body.presenting .edit-only{display:none!important}
 
 /* ---------- Overlays, toasts ---------- */
@@ -1434,6 +1439,10 @@ const HGAP = 64;          // distância horizontal entre pai e filhos
 const KNOB = 8;           // centro do knob a partir da borda direita do nó
 const ZMIN = 0.2, ZMAX = 3;
 const LS = 'provecta-mm:';
+// ?plateia=1: a guia é a que vai no compartilhamento de tela. Sem interface, sem edição, sem toast.
+const PLATEIA = new URLSearchParams(location.search).get('plateia') === '1';
+const SYNC_KEY = LS + 'sync';          // canal de reserva via evento storage
+const SYNC_CH = 'mapa-vgv-sync';       // canal principal
 const SVGNS = 'http://www.w3.org/2000/svg';
 const FONT = 'Inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
 const MONO = '"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
@@ -1473,6 +1482,7 @@ const store = {
 };
 
 function toast(msg, ms = 2600) {
+  if (PLATEIA) return;
   const same = [...$('#toasts').children].find(x => x.textContent === msg);
   if (same) { clearTimeout(same._t); same._t = setTimeout(() => same.remove(), ms); return; }
   const t = document.createElement('div');
@@ -2060,11 +2070,13 @@ function saveNow() {
 }
 
 function editGuard() {
+  if (PLATEIA) return false;
   if (S.pres) { toast('Edição bloqueada no modo apresentação', 1600); return false; }
   if (!S.edit) { toast('Ative o modo edição com E', 1400); return false; }
   return true;
 }
 function toggleEdit(force) {
+  if (PLATEIA) return;
   if (S.pres) { toast('Edição bloqueada no modo apresentação', 1600); return; }
   const on = typeof force === 'boolean' ? force : !S.edit;
   if (on === S.edit) return;
@@ -2233,6 +2245,7 @@ $('#pnNoteIn').addEventListener('keydown', e => { if (e.key === 'Escape') e.targ
    Modo apresentação
    ================================================================ */
 function enterPres() {
+  if (PLATEIA) return;   // a guia da plateia é controlada pelo apresentador: nada de modo apresentação local
   if (S.editing) commitEdit();
   if (S.edit) toggleEdit(false);
   closeSearch(); exitFocus(true); closePanel(); closeHelp();
@@ -2752,7 +2765,7 @@ nodesEl.addEventListener('click', e => {
 nodesEl.addEventListener('dblclick', e => {
   const el = e.target.closest('.node');
   if (!el || e.target.closest('.knob')) return;
-  if (S.pres) return;
+  if (S.pres || PLATEIA) return;
   if (!S.edit) { toast('Para editar, ative o modo edição (E)', 1500); return; }
   e.preventDefault();
   startEdit(el.dataset.id);
@@ -2935,8 +2948,88 @@ if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if
 window.addEventListener('beforeunload', () => { if (S.editing) commitEdit(); saveNow(); });
 window.addEventListener('hashchange', () => { const id = decodeURIComponent(location.hash.slice(1)); if (id && S.map && id !== S.map.id && S.maps.some(m => m.id === id)) { loadMap(id); $('#mapSel').value = id; } });
 
+/* ================================================================
+   Sincronização com a página do apresentador (apresentador.html)
+   A guia do apresentador manda 'goto' / 'overview' / 'ping'.
+   Esta guia obedece e responde 'pong'. Nunca manda comando.
+   ================================================================ */
+let BC = null;
+try { BC = new BroadcastChannel(SYNC_CH); } catch (e) { BC = null; }
+
+function syncPost(msg) {
+  const data = Object.assign({ id: Date.now().toString(36) + Math.random().toString(36).slice(2, 8) }, msg);
+  if (BC) { try { BC.postMessage(data); return; } catch (e) { /* cai no storage */ } }
+  try { localStorage.setItem(SYNC_KEY, JSON.stringify(data)); } catch (e) { /* ignore */ }
+}
+
+// Prepara o terreno antes de obedecer: sai de apresentação, foco e busca.
+function syncPrepare(mapId) {
+  if (mapId && S.map && mapId !== S.map.id && S.maps.some(m => m.id === mapId)) loadMap(mapId, { quiet: true });
+  if (S.editing) commitEdit();
+  if (S.pres) exitPres(true);
+  if (S.focus) exitFocus(true);
+  if (S.search.open) closeSearch();
+}
+
+// Abre o caminho até o nó, abre um nível de filhos dele e recolhe todo o resto.
+function syncGoto(mapId, nodeId) {
+  syncPrepare(mapId);
+  const n = nodeId && S.byId.get(String(nodeId));
+  if (!n) return false;
+  const path = new Set();
+  let p = S.parent.get(n.id);
+  while (p) { path.add(p.id); p = S.parent.get(p.id); }
+  for (const o of S.order) {
+    if (!o.children.length) continue;
+    if (o === S.root || path.has(o.id) || o.id === n.id) delete o.collapsed;
+    else o.collapsed = true;
+  }
+  render({ anchor: n.id });
+  S.sel = n.id;
+  refreshClasses();
+  animateCam(camCenter(n.id));
+  closePanel();
+  return true;
+}
+
+// Recolhe até o nível 1 e enquadra tudo (o mesmo que a tecla F depois de recolher).
+function syncOverview(mapId) {
+  syncPrepare(mapId);
+  for (const o of S.order) if (o.children.length) { if (o === S.root) delete o.collapsed; else o.collapsed = true; }
+  render({ anchor: S.root.id });
+  S.sel = null;
+  refreshClasses();
+  closePanel();
+  const f = fitCam();
+  if (f) animateCam(f);
+  return true;
+}
+
+let lastSyncId = '';
+function onSyncMsg(d) {
+  if (!d || typeof d !== 'object' || !d.id || d.id === lastSyncId) return;
+  lastSyncId = d.id;
+  if (d.type === 'ping') { syncPost({ type: 'pong', map: S.map ? S.map.id : null }); return; }
+  if (d.type === 'goto') { syncGoto(d.map, d.node); return; }
+  if (d.type === 'overview') { syncOverview(d.map); return; }
+}
+
+if (BC) BC.onmessage = e => onSyncMsg(e.data);
+window.addEventListener('storage', e => {
+  if (e.key !== SYNC_KEY || !e.newValue) return;
+  try { onSyncMsg(JSON.parse(e.newValue)); } catch (err) { /* ignore */ }
+});
+
+if (PLATEIA) {
+  body.classList.add('plateia', 'ui-hidden');
+  closePanel();
+  render({ dur: 0, anchor: S.root ? S.root.id : null });
+  initialCamera();
+}
+
+
 // Ganchos para testes automatizados (somente leitura/ações de alto nível)
-window.__mm = { S, render, select, enterPres, exitPres, expandAll, collapseAll, sceneGeometry, buildSVG };
+window.__mm = { S, render, select, enterPres, exitPres, expandAll, collapseAll, sceneGeometry, buildSVG, syncGoto, syncOverview, onSyncMsg, PLATEIA };
 })();
 </script>
 </body>
