@@ -1765,6 +1765,13 @@ function animateLayout(tgt, camTo, dur) {
     }
     from.set(id, p);
   }
+  // Um render cancelado deixa inline opacity:0 em nós que agora não são mais "fresh".
+  // Sem isto, esses nós somem de vez (os links já se protegem disso em drawLinks).
+  for (const [id] of tgt) {
+    if (fresh.has(id)) continue;
+    const el = S.els.get(id);
+    if (el && el.style.opacity !== '') el.style.opacity = '';
+  }
   const la = LA = { tgt, from, fresh, camFrom: { ...S.cam }, camTo, t0: performance.now(), dur, raf: 0 };
   const step = now => {
     if (LA !== la) return;
@@ -2245,7 +2252,6 @@ $('#pnNoteIn').addEventListener('keydown', e => { if (e.key === 'Escape') e.targ
    Modo apresentação
    ================================================================ */
 function enterPres() {
-  if (PLATEIA) return;   // a guia da plateia é controlada pelo apresentador: nada de modo apresentação local
   if (S.editing) commitEdit();
   if (S.edit) toggleEdit(false);
   closeSearch(); exitFocus(true); closePanel(); closeHelp();
@@ -2962,13 +2968,27 @@ function syncPost(msg) {
   try { localStorage.setItem(SYNC_KEY, JSON.stringify(data)); } catch (e) { /* ignore */ }
 }
 
-// Prepara o terreno antes de obedecer: sai de apresentação, foco e busca.
+// Prepara o terreno antes de obedecer. O modo apresentação NÃO é encerrado:
+// se você clicou em Apresentar no mapa, o roteiro conduz a revelação dali em diante.
 function syncPrepare(mapId) {
   if (mapId && S.map && mapId !== S.map.id && S.maps.some(m => m.id === mapId)) loadMap(mapId, { quiet: true });
   if (S.editing) commitEdit();
-  if (S.pres) exitPres(true);
   if (S.focus) exitFocus(true);
   if (S.search.open) closeSearch();
+}
+
+// Em apresentação: revela até o nó e todo o ramo dele, como o Shift+→ do mapa.
+function presGoToNode(n) {
+  const P = S.pres;
+  const i0 = P.order.indexOf(n);
+  if (i0 < 0) return false;
+  const ids = [];
+  walkAll(n, x => ids.push(x.id));
+  // Nunca desrevela ao avançar: um nó que já apareceu não some da tela no meio da
+  // conversa. Um passo mais "atrás" no mapa só move a seleção e a câmera.
+  // Para voltar ao começo existe o passo de visão geral, que volta ao passo 1.
+  presGo(Math.max(i0 + 1 + S.desc.get(n.id), P.n), { force: true, follow: ids, selId: n.id });
+  return true;
 }
 
 // Abre o caminho até o nó, abre um nível de filhos dele e recolhe todo o resto.
@@ -2976,6 +2996,7 @@ function syncGoto(mapId, nodeId) {
   syncPrepare(mapId);
   const n = nodeId && S.byId.get(String(nodeId));
   if (!n) return false;
+  if (S.pres) { const ok = presGoToNode(n); closePanel(); return ok; }
   const path = new Set();
   let p = S.parent.get(n.id);
   while (p) { path.add(p.id); p = S.parent.get(p.id); }
@@ -2995,6 +3016,9 @@ function syncGoto(mapId, nodeId) {
 // Recolhe até o nível 1 e enquadra tudo (o mesmo que a tecla F depois de recolher).
 function syncOverview(mapId) {
   syncPrepare(mapId);
+  // Em apresentação, voltar ao começo é voltar ao passo 1: só a raiz na tela,
+  // o mesmo estado de logo depois de clicar em Apresentar.
+  if (S.pres) { presGo(1, { force: true }); closePanel(); return true; }
   for (const o of S.order) if (o.children.length) { if (o === S.root) delete o.collapsed; else o.collapsed = true; }
   render({ anchor: S.root.id });
   S.sel = null;
